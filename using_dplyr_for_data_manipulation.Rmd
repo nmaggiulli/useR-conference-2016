@@ -1,0 +1,45 @@
+---
+title: "Using Dplyr For Data Manipulation"
+output: html_document
+---
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+library(dplyr)
+library(hflights)
+hflights <- tbl_df(hflights)
+```
+
+This loads the libraries and converts the hflights data into a dplyr tbl.  Now let's take a look at the data:
+
+```{r}
+glimpse(hflights)
+```
+
+Now let's try some piping in dplyr.  This is a simple way to pass arguments in succession to reach a result.  For example, if I wanted to group the hflights data by UniqueCarrier to get the average ArrDelay and then sort by avgArrDelay I could do the following:
+
+```{r}
+#1 Grab data
+#2 Remove NAs
+#3 Group by UniqueCarrier
+#4 Get the average ArrDelay
+#5 Sort result
+
+ hflights %>% #1
+  na.omit() %>% #2
+  group_by(UniqueCarrier) %>% #3
+  summarise(avgArrDelay = mean(ArrDelay)) %>% #4
+  arrange(desc(avgArrDelay)) #5
+```
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+hflights_no_na <- na.omit(hflights)
+plot(hflights_no_na$Distance, hflights_no_na$ArrDelay)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
