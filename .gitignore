@@ -5,6 +5,8 @@
 *.xls
 *.xlm
 *.xlsb
+*.ppt
+*.pptx
 .htaccess
 sitemap.xml
 sitemap.xml.gz
